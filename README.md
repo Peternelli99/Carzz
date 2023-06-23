@@ -8,9 +8,9 @@
 ---
 ## Descrição
 
-- Este é um sistema desenvolvido para concessionárias e revendedores automotivos, com o objetivo de facilitar o controle e a organização das transações de compra e venda de veículos. O software desenvolvido é um sistema de gerenciamento de vendas de carros, projetado para concessionárias e revendedores automotivos. A principal finalidade desse sistema é facilitar o controle e a organização das transações de compra e venda de veículos. O sistema é composto pelas seguintes entidades: Cliente, Vendedor, Carro, Estoque, Transação, Relatórios.
+- Este é um sistema desenvolvido para concessionárias e revendedores automotivos, com o objetivo de facilitar o controle e a organização das transações de compra e venda de veículos. O software desenvolvido é um sistema de gerenciamento de vendas de carros, projetado para concessionárias e revendedores automotivos. A principal finalidade desse sistema é facilitar o controle e a organização das transações de compra e venda de veículos. O sistema é composto pelas seguintes entidades: Cliente, Vendedor e Concessionária.
 
-- O sistema de gerenciamento de vendas de carros visa otimizar e simplificar o processo de venda, fornecendo um ambiente centralizado para acompanhar e controlar todas as etapas do processo de vendas. Ele permite que os vendedores tenham acesso rápido a informações atualizadas sobre carros disponíveis, histórico de clientes e transações anteriores, facilitando a tomada de decisões e proporcionando uma experiência mais eficiente e personalizada para os clientes interessados em comprar um veículo.
+- O sistema de gerenciamento de vendas de carros visa otimizar e simplificar o processo de venda, fornecendo um ambiente centralizado para acompanhar e controlar todas as etapas do processo de vendas. Ele permite que os vendedores tenham acesso rápido a informações atualizadas sobre carros disponíveis, clientes e vendas, facilitando a tomada de decisões e proporcionando uma experiência mais eficiente e personalizada para os clientes interessados em comprar um veículo.
 ---
 
 ## Desenvolvedores
@@ -46,8 +46,9 @@
 ### Tipos de Usuários
 O sistema destina-se a dois tipos de usuários:
 
-- Vendedores: Responsáveis por conduzir as vendas de carros. Eles têm acesso ao cadastro de clientes, carros disponíveis, registro de vendas e relatórios de desempenho.
-- Administradores: Responsáveis por gerenciar o sistema como um todo. Eles têm acesso total a todas as funcionalidades do sistema, incluindo o cadastro de vendedores e clientes, controle do estoque e geração de relatórios.
+- Vendedores: Responsáveis por conduzir as vendas de carros. Eles têm acesso ao cadastro de clientes, carros disponíveis e registro de vendas.
+- Concessionária(administrador): Responsáveis por gerenciar o sistema como um todo. Eles têm acesso total a todas as funcionalidades do sistema, incluindo o cadastro de vendedores e clientes, controle do estoque e geração de relatórios.
+- Clientes: Responsáveis por listar os carros disponíveis, comprar e visualizar os carros comprados.
 
 ---
 
@@ -81,10 +82,12 @@ O sistema destina-se a dois tipos de usuários:
 ---
 ## Regras de Uso do Git
 
-### 1. Commit:
+### 1. Commits semânticos:
 
-Descrever o que foi feito indicando a ação.
-Ex.: Criar tela de login.
+Utilize o seguinte padrão para descrever o que foi feito indicando a ação:
+
+  - <ação>: <descrição>. 
+  - Exemplo: feat: Criar tela de login.
 
 ### 2. Branches:
 
