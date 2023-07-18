@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply text-gray-800 bg-gray-50 p-0 m-0 font-sans relative w-full min-w-minimum antialiased overflow-x-hidden;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  h1 {
+    @apply text-3xl lg:text-4xl font-medium;
+  }
+  h2 {
+    @apply text-2xl lg:text-3xl font-medium;
+  }
+  h3 {
+    @apply text-xl lg:text-2xl font-medium;
+  }
+  h4 {
+    @apply text-lg lg:text-xl font-medium;
+  }
+  h5 {
+    @apply text-base lg:text-lg font-medium;
+  }
+
+  .container {
+    @apply mx-auto px-4 sm:max-w-small md:max-w-medium lg:max-w-large xl:max-w-extra-large 2xl:max-w-extra-extra-large;
+  }
+
+  .spacing {
+    @apply py-8 sm:py-16 lg:py-24;
+  }
+
+}
+
+@layer components {
+  .card-white {
+    @apply w-full bg-white rounded-2xl border border-gray-100 shadow-lg py-6 px-4;
+  }
+}
+
+.rdt_TableCol{
+  font-size: 14px !important;
+}
+
+.rdt_TableCell{
+  font-size: 16px !important;
+}
+
+:root {
+  --primary-dark: #7FE5F0;
+  --primary: #513B41;
+  --primary-light: #5189f1;
+  --primary-lightest: #7FE5F0;
+  
+  --white: #F4F7F0;
+  --black: #000;
+  --transparent: transparent;
+  --current: currentColor;
+
+  --success: #48C945;
+  --info: #3682DA;
+  --warning: #F99C11;
+  --danger: #C95545;
+}
