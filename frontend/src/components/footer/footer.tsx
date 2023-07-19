@@ -6,9 +6,9 @@ export default function Footer() {
         Footer
       </h2>
       <div className="container lg:py-8">
-        <div className="text-sm text-gray-400 text-center">
+        {/* <div className="text-sm text-gray-400 text-center">
           <p>&copy; {copyright}</p>
-        </div>
+        </div> */}
       </div>
     </footer>
   );

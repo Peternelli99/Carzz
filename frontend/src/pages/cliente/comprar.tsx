@@ -15,13 +15,13 @@ import Button from "@components/elements/button";
 import Link from "next/link";
 
 const columns = [
-  {
-    id: "codigo",
-    name: "Código",
-    selector: (row: any) => row.codigo,
-    sortable: true,
-    width: "10%",
-  },
+  // {
+  //   id: "codigo",
+  //   name: "Código",
+  //   selector: (row: any) => row.codigo,
+  //   sortable: true,
+  //   width: "10%",
+  // },
   {
     id: "nome",
     name: "Nome",
@@ -37,7 +37,7 @@ const columns = [
   {
     id: "vendedor",
     name: "Vendedor",
-    selector: (row: any) => row.vendedor.nome,
+    selector: (row: any) => row.vendedor?.nome,
     sortable: true,
   },
 ];

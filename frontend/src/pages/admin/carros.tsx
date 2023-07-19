@@ -16,13 +16,13 @@ import { NavbarAdminLinks } from "@utils/data";
 import AddEditCarro from "@components/modal/form/carro";
 
 const columns = [
-  {
-    id: "codigo",
-    name: "Código",
-    selector: (row: any) => row.codigo,
-    sortable: true,
-    width: "10%",
-  },
+  // {
+  //   id: "codigo",
+  //   name: "Código",
+  //   selector: (row: any) => row.codigo,
+  //   sortable: true,
+  //   width: "10%",
+  // },
   {
     id: "nome",
     name: "Nome",
@@ -35,12 +35,12 @@ const columns = [
     selector: (row: any) => row.concessionaria.nome,
     sortable: true,
   },
-  {
-    id: "vendedor",
-    name: "Vendedor",
-    selector: (row: any) => row.vendedor.nome,
-    sortable: true,
-  },
+  // {
+  //   id: "vendedor",
+  //   name: "Vendedor",
+  //   selector: (row: any) => row.vendedor?.nome,
+  //   sortable: true,
+  // },
   {
     id: "acoes",
     sortable: false,
