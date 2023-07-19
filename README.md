@@ -8,9 +8,9 @@
 ---
 ## Descrição
 
-- Este é um sistema desenvolvido para concessionárias e revendedores automotivos, com o objetivo de facilitar o controle e a organização das transações de compra e venda de veículos. O software desenvolvido é um sistema de gerenciamento de vendas de carros, projetado para concessionárias e revendedores automotivos. A principal finalidade desse sistema é facilitar o controle e a organização das transações de compra e venda de veículos. O sistema é composto pelas seguintes entidades: Cliente, Vendedor e Concessionária.
+- Este é um sistema desenvolvido para concessionárias e revendedores automotivos, com o objetivo de facilitar o controle e a organização das transações de compra e venda de veículos. O software desenvolvido é um sistema de gerenciamento de vendas de carros, projetado para concessionárias e revendedores automotivos. A principal finalidade desse sistema é facilitar o controle e a organização das transações de compra e venda de veículos. O sistema é composto pelas seguintes entidades: Cliente e Administrador.
 
-- O sistema de gerenciamento de vendas de carros visa otimizar e simplificar o processo de venda, fornecendo um ambiente centralizado para acompanhar e controlar todas as etapas do processo de vendas. Ele permite que os vendedores tenham acesso rápido a informações atualizadas sobre carros disponíveis, clientes e vendas, facilitando a tomada de decisões e proporcionando uma experiência mais eficiente e personalizada para os clientes interessados em comprar um veículo.
+- O sistema de gerenciamento de vendas de carros visa otimizar e simplificar o processo de venda, fornecendo um ambiente centralizado para acompanhar e controlar todas as etapas do processo de vendas. Ele permite que os vendedores tenham acesso rápido a informações atualizadas sobre carros disponíveis, clientes, vendedores e vendas, facilitando a tomada de decisões e proporcionando uma experiência mais eficiente e personalizada para os clientes interessados em comprar um veículo.
 ---
 
 ## Desenvolvedores
@@ -38,15 +38,14 @@
 ---
 ### Principais Funcionalidades
 - Cadastro de clientes e vendedores;
-- Cadastro de carros com informações detalhadas;
+- Cadastro de carros;
 - Controle de estoque de veículos;
 - Registro de transações de compra e venda de carros;
-- Geração de relatórios de vendas e desempenho dos vendedores.
+- Cadastro de concessionárias.
 
 ### Tipos de Usuários
 O sistema destina-se a dois tipos de usuários:
 
-- Vendedores: Responsáveis por conduzir as vendas de carros. Eles têm acesso ao cadastro de clientes, carros disponíveis e registro de vendas.
 - Concessionária(administrador): Responsáveis por gerenciar o sistema como um todo. Eles têm acesso total a todas as funcionalidades do sistema, incluindo o cadastro de vendedores e clientes, controle do estoque e geração de relatórios.
 - Clientes: Responsáveis por listar os carros disponíveis, comprar e visualizar os carros comprados.
 

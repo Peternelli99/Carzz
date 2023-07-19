@@ -14,12 +14,12 @@ import { EmptyTable } from "@components/empty/table";
 import { useEffect, useState } from "react";
 
 const columns = [
-  {
-    id: "codigo",
-    name: "Código",
-    selector: (row: any) => row.codigo,
-    sortable: true,
-  },
+  // {
+  //   id: "codigo",
+  //   name: "Código",
+  //   selector: (row: any) => row.codigo,
+  //   sortable: true,
+  // },
   {
     id: "nome",
     name: "Nome",
@@ -27,12 +27,12 @@ const columns = [
     sortable: true,
     width: "50%",
   },
-  {
-    id: "vendedor",
-    name: "Vendedor",
-    selector: (row: any) => row.vendedor.nome,
-    sortable: true,
-  },
+  // {
+  //   id: "vendedor",
+  //   name: "Vendedor",
+  //   selector: (row: any) => row.vendedor?.nome,
+  //   sortable: true,
+  // },
 ];
 
 const Home: NextPage = () => {
@@ -90,7 +90,7 @@ const Home: NextPage = () => {
             />
           </div>
           {/*  */}
-          <div className="w-1/3 flex flex-col gap-6">
+          <div className="w-3/4 flex flex-col gap-6">
             <div className="card-white flex flex-col items-center justify-center">
               <div className="bg-gray-200 rounded-full p-4 text-primary">
                 <HiOutlineUserGroup size={24} />

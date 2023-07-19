@@ -19,11 +19,11 @@ import {
       title: "Concessionárias",
       href: "/admin/concessionarias",
     },
-    {
-      id: "marcas",
-      title: "Marcas",
-      href: "/admin/marcas",
-    },
+    // {
+    //   id: "marcas",
+    //   title: "Marcas",
+    //   href: "/admin/marcas",
+    // },
     {
       id: "carros",
       title: "Carros",
@@ -61,12 +61,12 @@ import {
       icon: HiOutlineOfficeBuilding,
       href: "/admin/concessionarias",
     },
-    {
-      id: "marca",
-      title: "Marcas",
-      icon: HiOutlineFolderOpen,
-      href: "/admin/marcas",
-    },
+    // {
+    //   id: "marca",
+    //   title: "Marcas",
+    //   icon: HiOutlineFolderOpen,
+    //   href: "/admin/marcas",
+    // },
     {
       id: "carros",
       title: "Carros",

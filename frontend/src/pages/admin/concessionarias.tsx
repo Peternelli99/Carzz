@@ -32,12 +32,12 @@ const columns = [
     sortable: true,
     width: "50%",
   },
-  {
-    id: "sigla",
-    name: "Sigla",
-    selector: (row: any) => row.sigla,
-    sortable: true,
-  },
+  // {
+  //   id: "sigla",
+  //   name: "Sigla",
+  //   selector: (row: any) => row.sigla,
+  //   sortable: true,
+  // },
   {
     id: "acoes",
     sortable: false,
@@ -50,7 +50,7 @@ const columns = [
           description="Tem certeza que deseja excluir essa concessionaria?"
           onClick={() => deleteRegistro(props.id)}
         />
-        <AddEditConcessionaria editData={props} /> 
+        {/* <AddEditConcessionaria editData={props} />  */}
       </div>
     ),
   },
