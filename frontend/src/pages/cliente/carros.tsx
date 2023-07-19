@@ -30,7 +30,7 @@ const columns = [
   {
     id: "vendedor",
     name: "Vendedor",
-    selector: (row: any) => row.vendedor,
+    selector: (row: any) => row?.vendedor,
     sortable: true,
   },
 ];
