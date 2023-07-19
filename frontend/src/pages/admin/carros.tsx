@@ -38,7 +38,7 @@ const columns = [
   {
     id: "vendedor",
     name: "Vendedor",
-    selector: (row: any) => row.vendedor.nome,
+    selector: (row: any) => row.vendedor,
     sortable: true,
   },
   {
