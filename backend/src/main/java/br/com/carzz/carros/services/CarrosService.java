@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.carzz.carros.entities.Cliente;
 import br.com.carzz.carros.entities.Carros;
 import br.com.carzz.carros.entities.Compra;
 import br.com.carzz.carros.repositories.CarrosRepository;
@@ -42,9 +41,8 @@ public class CarrosService {
         return carroRepository.save(carro);
     }
 
-    public Compra comprar(Cliente cliente, Carros carro){
+    public Compra comprar( Carros carro){
         Compra compra = new Compra();
-        compra.setCliente(cliente);
         compra.setCarro(carro);
         return compraRepository.save(compra);
     }

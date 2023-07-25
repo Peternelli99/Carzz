@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.carzz.carros.entities.Cliente;
 import br.com.carzz.carros.entities.Carros;
 import br.com.carzz.carros.entities.Compra;
 import br.com.carzz.carros.services.CarrosService;
@@ -59,10 +58,7 @@ public class CarrosController {
         return ResponseEntity.ok().body(compras);
     }
 
-    @PostMapping(path = "/comprar")
-    public ResponseEntity<Compra> comprar(@RequestBody Cliente cliente, @RequestBody Carros carro){
-        return ResponseEntity.ok().body(carroService.comprar(cliente, carro));
-    }
+
 
     @DeleteMapping(path = "/compra/excluir/{id}")
     public ResponseEntity<HttpStatus> excluirCompra(@PathVariable Long id){

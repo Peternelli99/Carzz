@@ -1,5 +1,6 @@
 package br.com.carzz.carros.entities;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,4 +27,6 @@ public class Compra {
     @JoinColumn(name = "id_carro", referencedColumnName = "id")
     private Carros carro;
 
+     @Column(name = "nome")
+    private String nome;
 }
