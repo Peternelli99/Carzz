@@ -15,17 +15,35 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const columns = [
+  // {
+  //   id: "codigo",
+  //   name: "Código",
+  //   selector: (row: any) => row.id,
+  //   sortable: true,
+  //   width: "10%",
+  // },
   {
-    id: "codigo",
-    name: "Código",
-    selector: (row: any) => row.id,
+    id: "id_carro",
+    name: "id do carro",
+    selector: (row: any) => row.carro.id,
     sortable: true,
-    width: "10%",
   },
   {
     id: "nome",
-    name: "Nome",
-    selector: (row: any) => row.nome,
+    name: "Nome do carro",
+    selector: (row: any) => row.carro.nome,
+    sortable: true,
+  },
+  {
+    id: "cliente",
+    name: "Cliente (dono)",
+    selector: (row: any) => row.cliente.nome,
+    sortable: true,
+  },
+  {
+    id: "cliente",
+    name: "Id do cliente",
+    selector: (row: any) => row.cliente.id,
     sortable: true,
   },
 ];
@@ -39,6 +57,7 @@ const Home: NextPage = () => {
     fetch("http://localhost:8080/api/comprar/listar")
       .then((response) => response.json())
       .then((data) => {
+        console.log("carros comprados", data);
         setCarrosComprados(data);
       })
       .catch((err) => {
