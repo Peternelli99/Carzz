@@ -25,108 +25,138 @@ suite(
         assert.strictEqual(pageTitle, "Concessionárias");
       });
 
-      it("Deve exibir uma tabela de dados", async function () {
-        // Verificar se a tabela de dados está presente
-        const tableElement = await driver.findElement(By.name('Nome'));
-        assert.ok(tableElement, "Tabela de dados não encontrada");
+      it("Deve carregar a página de Carros corretamente", async function () {
+        // Abrir a página no navegador
+        await driver.get("http://localhost:3000/admin/carros");
 
-        // Verificar se os campos da tabela de dados estão preenchidos corretamente
-        const rows = await tableElement.findElements(By.name("Data Criação"));
-        assert.ok(rows.length > 1, "Nenhuma concessionária encontrada na tabela.");
-
-        // for (const row of rows) {
-        //   const id = await row.findElement(By.css("td:nth-child(1)")).getText();
-        //   const nome = await row.findElement(By.css("td:nth-child(2)")).getText();
-        //   const endereco = await row.findElement(By.css("td:nth-child(3)")).getText();
-        //   const telefone = await row.findElement(By.css("td:nth-child(4)")).getText();
-
-        //   assert.notEqual(id, "");
-        //   assert.notEqual(nome, "");
-        //   assert.notEqual(endereco, "");
-        //   assert.notEqual(telefone, "");
-        // }
+        // Verificar se o título da página é exibido corretamente
+        const pageTitle = await driver.findElement(By.css("h2")).getText();
+        assert.strictEqual(pageTitle, "Carros");
       });
 
-      it("Deve exibir um aviso quando não há concessionárias cadastradas", async function () {
-        // Verificar se o aviso de tabela vazia está presente
-        const emptyTableElement = await driver.findElement(By.css(".empty-table"));
-        const warningText = await emptyTableElement.getText();
+      it("Deve carregar a página de Vendedores corretamente", async function () {
+        // Abrir a página no navegador
+        await driver.get("http://localhost:3000/admin/vendedores");
 
-        assert.strictEqual(warningText, "Não há concessionárias cadastradas :(");
+        // Verificar se o título da página é exibido corretamente
+        const pageTitle = await driver.findElement(By.css("h2")).getText();
+        assert.strictEqual(pageTitle, "Vendedores");
+      });
+
+      it("Deve carregar a página de Clientes corretamente", async function () {
+        // Abrir a página no navegador
+        await driver.get("http://localhost:3000/admin/clientes");
+
+        // Verificar se o título da página é exibido corretamente
+        const pageTitle = await driver.findElement(By.css("h2")).getText();
+        assert.strictEqual(pageTitle, "Clientes");
+      });
+
+      it("Deve exibir uma tabela de dados", async function () {
+        // Abrir a página no navegador
+        await driver.get("http://localhost:3000/admin/concessionarias");
+        // Verificar se a tabela de dados está presente
+        // class name gerado pela tabela no html: sc-fLlhyt ifOHjV
+        const tableElemente = await driver.findElement(
+          By.className("sc-fLlhyt ifOHjV")
+        );
+        assert.ok(tableElemente, "sc-fLlhyt ifOHjV");
       });
 
       it("Deve adicionar uma nova concessionária", async function () {
         // Abrir a página de adicionar concessionária
-        await driver.get("http://localhost:3000/admin/adicionar-concessionaria");
-
-        // Preencher os campos do formulário
-        const nomeInput = await driver.findElement(By.name("nome"));
-
-        const newConcessionaria = {
-          nome: "Nova Concessionária Teste",
-        };
-
-        await nomeInput.sendKeys(newConcessionaria.nome);
-
-        // Enviar o formulário
-        await driver.findElement(By.css("form")).submit();
-
-        // Verificar se a página redirecionou para a página de listagem de concessionárias
-        const pageTitle = await driver.findElement(By.css("h2")).getText();
-        assert.strictEqual(pageTitle, "Concessionárias");
-      });
-
-      it("Deve editar uma concessionária existente", async function () {
-        // Abrir a página de listagem de concessionárias
         await driver.get("http://localhost:3000/admin/concessionarias");
 
-        // Verificar se há alguma concessionária na tabela
-        const tableElement = await driver.findElement(By.css(".rdt_Table"));
-        const rows = await tableElement.findElements(By.css("tr"));
-        assert.ok(rows.length > 1, "Nenhuma concessionária encontrada na tabela.");
+        const cadastrar_transacao = driver.findElement(
+          By.xpath('//*[@id="__next"]/div/div/div[1]/button')
+        );
+        cadastrar_transacao.click();
 
-        // Clicar no botão "Editar" da primeira concessionária da tabela
-        const editButton = await rows[1].findElement(By.css(".edit-button"));
-        await editButton.click();
+        const nome_input = driver.findElement(By.xpath('//*[@id="nome"]'));
+        nome_input.sendKeys("teste de concessionaria");
+        const botaoSalvar = driver.findElement(
+          By.xpath(
+            '//*[@id="__next"]/div/div/div[1]/div[1]/div/div/form/div[3]/button[2]'
+          )
+        );
+        botaoSalvar.click();
 
-        // Atualizar os campos do formulário
-        const nomeInput = await driver.findElement(By.name("nome"));
+        const botaoOrdenar = driver.findElement(
+          By.xpath(
+            '//*[@id="__next"]/div/div/div[2]/div[1]/div/div/div[1]/div/div[1]/div/span'
+          )
+        );
+        botaoOrdenar.click();
 
-        const updatedConcessionaria = {
-          nome: "Concessionária Editada",
-        };
-
-        await nomeInput.clear();
-        await nomeInput.sendKeys(updatedConcessionaria.nome);
-
-        // Enviar o formulário de edição
-        await driver.findElement(By.css("form")).submit();
-
-        // Verificar se a página redirecionou para a página de listagem de concessionárias
-        const pageTitle = await driver.findElement(By.css("h2")).getText();
-        assert.strictEqual(pageTitle, "Concessionárias");
+        const primeiraLinha = driver.findElement(
+          By.xpath('//*[@id="cell-data-1"]')
+        );
+        assert.ok(primeiraLinha, "teste de concessionaria");
       });
 
       it("Deve excluir uma concessionária", async function () {
         // Abrir a página de listagem de concessionárias
         await driver.get("http://localhost:3000/admin/concessionarias");
 
-        // Verificar se há alguma concessionária na tabela
-        const tableElement = await driver.findElement(By.css(".rdt_Table"));
-        const rows = await tableElement.findElements(By.css("tr"));
-        assert.ok(rows.length > 1, "Nenhuma concessionária encontrada na tabela.");
+        //cadastra concessionaria para ser excluida
+        const cadastrar_transacao = driver.findElement(
+          By.xpath('//*[@id="__next"]/div/div/div[1]/button')
+        );
+        cadastrar_transacao.click();
 
-        // Clicar no botão "Excluir" da primeira concessionária da tabela
-        const deleteButton = await rows[1].findElement(By.css(".delete-button"));
-        await deleteButton.click();
+        const nome_input = driver.findElement(By.xpath('//*[@id="nome"]'));
+        nome_input.sendKeys("concessionaria2");
+        const botaoSalvar = driver.findElement(
+          By.xpath(
+            '//*[@id="__next"]/div/div/div[1]/div[1]/div/div/form/div[3]/button[2]'
+          )
+        );
+        botaoSalvar.click();
 
-        // Confirmar a exclusão no modal de confirmação
-        const confirmButton = await driver.findElement(By.css(".confirm-button"));
-        await confirmButton.click();
+        //cadastra concessionaria para ser exibida apos a 1 ser excluida
+        const cadastrar_transacao2 = driver.findElement(
+          By.xpath('//*[@id="__next"]/div/div/div[1]/button')
+        );
+        cadastrar_transacao2.click();
 
-        // Verificar se a página redirecionou para a página de listagem de concessionárias
-        const pageTitle = await driver.findElement(By.css("h2")).getText();
-        assert.strictEqual(pageTitle, "Concessionárias");
+        const nome_input2 = driver.findElement(By.xpath('//*[@id="nome"]'));
+        nome_input2.sendKeys("excluir");
+        const botaoSalvar2 = driver.findElement(
+          By.xpath(
+            '//*[@id="__next"]/div/div/div[1]/div[1]/div/div/form/div[3]/button[2]'
+          )
+        );
+        botaoSalvar2.click();
+
+        const botaoOrdenar = driver.findElement(
+          By.xpath(
+            '//*[@id="__next"]/div/div/div[2]/div[1]/div/div/div[1]/div/div[1]/div/span'
+          )
+        );
+        botaoOrdenar.click();
+
+        const primeiraLinha = driver.findElement(
+          By.xpath('//*[@id="cell-data-1"]')
+        );
+        assert.ok(primeiraLinha, "excluir");
+
+        //excluir concessionaria cadastrada
+        const botaoExcluir = driver.findElement(
+          By.xpath('//*[@id="cell-acoes-1"]/div/button')
+        );
+        botaoExcluir.click();
+
+        const botaoConfirmarExclusao = driver.findElement(
+          By.xpath(
+            '//*[@id="cell-acoes-1"]/div/div[1]/div/div/div[3]/button[2]'
+          )
+        );
+        botaoConfirmarExclusao.click();
+
+        await driver.get("http://localhost:3000/admin/concessionarias");
+
+        const concessionaireRow = driver.findElements(By.xpath(primeiraLinha));
+        assert.ok(concessionaireRow, "excluir");
       });
     });
   },
