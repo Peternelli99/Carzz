@@ -32,7 +32,7 @@ const columns = [
   {
     id: "registro",
     name: "Concessionaria",
-    selector: (row: any) => row.concessionaria.nome,
+    selector: (row: any) => row.concessionaria?.nome,
     sortable: true,
   },
   // {

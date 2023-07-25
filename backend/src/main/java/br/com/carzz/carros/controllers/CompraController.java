@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.carzz.carros.entities.Compra;
+import br.com.carzz.carros.repositories.CompraRepository;
 import br.com.carzz.carros.services.ComprarService;
 
 @RestController
@@ -19,9 +20,12 @@ public class CompraController {
     @Autowired
     private ComprarService comprarService;
 
-    @PostMapping(path="cadastrar")
-    public ResponseEntity<Compra> cadastrarCarros(@RequestBody Compra novaCompra){
-        return ResponseEntity.ok().body(comprarService.cadastrar(novaCompra));
+    @Autowired
+    private CompraRepository compraRepository;
+
+    @PostMapping(path = "/comprar")
+    public Compra fazerCompra(@RequestBody Compra compra) {
+        return compraRepository.save(compra);
     }
 
     @GetMapping(path = "/listar")

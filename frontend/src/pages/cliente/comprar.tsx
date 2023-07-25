@@ -32,7 +32,7 @@ const columns = [
   {
     id: "concessionaria",
     name: "Concessionaria",
-    selector: (row: any) => row.concessionaria.nome,
+    selector: (row: any) => row.concessionaria?.nome,
     sortable: true,
   },
   {
@@ -78,9 +78,9 @@ const Home: NextPage = () => {
   //   return { value: carro.nome, id: carro.id };
   // });
 
-  // let carroId = selectedRows.map(function (carro: any) {
-  //   return {id: carro.id };
-  // });
+  let carroId = selectedRows.map(function (carro: any) {
+    return {id: carro.id };
+  });
 
   // let ids = selectedRows.map(function (carro: any) {
   //   return {idCarro: id};
@@ -89,61 +89,68 @@ const Home: NextPage = () => {
   const handleChange = ({ selectedRows }: any) => {
     setSelectedRows(selectedRows);
     // console.log("optionCarrosID", optionsCarros);
-    // console.log("selectedRows", selectedRows);
+    console.log("selectedRows", selectedRows);
     // console.log("id carro", carroId );
     // console.log("id id id", ids );
     // addCarro(selectedRows.id)
   };
 
-  // type Inputs = {
-  //   // id?: number;
-  //   // nome?: string;
-  //   // codigo: string;
-  //   // concessionaria?: string;
-  //   // vendedor?: string;
-  //   idCarro: object;
-  //   cliente: string;
-  // };
+  type Inputs = {
+    cliente: object;
+    carro: object;
+    nome: string;
+  };
 
-  // const addCarro = async (data: Inputs) => {
-  //   let response = await fetch(`http://localhost:8080/api/carro/comprar`, {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       id_carro: carroId,
-  //       id_cliente: "01",
-  //     }),
-  //     headers: {
-  //       "Content-type": "application/json; charset=UTF-8",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => {
-  //       window.location.reload();
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.message);
-  //     });
-  // };
+  const addCarro = async (data: Inputs) => {
+    let response = await fetch(`http://localhost:8080/api/comprar/comprar`, {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
 
-  // const handleConfirmClick = () => {
-  //   if (selectedRows && selectedRows.length > 0) {
-  //     // Filter out any null or undefined rows before mapping
-  //     const filteredRows = selectedRows.filter((row) => row !== null && row !== undefined);
+  const handleConfirmClick = () => {
+    if (selectedRows && selectedRows.length > 0) {
+      // Filter out any null or undefined rows before mapping
+      const filteredRows = selectedRows.filter((row) => row !== null && row !== undefined);
   
-  //     // Map over the filteredRows and extract the necessary data
-  //     const data = {
-  //       idCarro: filteredRows.map((row) => ({
-  //         value: row?.nome, // Use an empty string as a fallback if 'row' or 'nome' is null or undefined
-  //         id: row?.id || "",
-  //       })),
-  //       cliente: "01",
-  //     };
+      // Map over the filteredRows and extract the necessary data
+      const data = {
+        cliente: {
+          id: "1"
+        },
+        carro: {
+          id: filteredRows[0].id,
+          nome: filteredRows[0].nome
+        },
+        nome: filteredRows[0].nome
+      };
   
-  //     addCarro(data);
-  //   } else {
-  //     console.log("No selected rows to confirm.");
-  //   }
-  // };
+      addCarro(data);
+    } else {
+      console.log("No selected rows to confirm.");
+    }
+  };
+
+  // {
+  //   "cliente": {
+  //     "id": 1
+  //   },
+  //   "carro": {
+  //     "id": 1,
+  //     "nome": "ford Ka"
+  //   },
+  //   "nome": "ford Ka"
+  // }
 
   return (
     <Template
@@ -210,12 +217,12 @@ const Home: NextPage = () => {
             )}
 
             <div className="self-end mt-8">
-              {/* <Button variant="primary" onClick={handleConfirmClick}>
-                <Link href="/cliente">
+              <Button variant="primary" onClick={handleConfirmClick}>
+                {/* <Link href="/cliente"> */}
                 <a>Confirmar</a>
-                </Link>
-              </Button> */}
-               <AddComprarCarro />
+                {/* </Link> */}
+              </Button>
+               {/* <AddComprarCarro /> */}
             </div>
           </div>
         </div>
