@@ -21,7 +21,7 @@ import br.com.carzz.carros.entities.Compra;
 import br.com.carzz.carros.services.CarrosService;
 
 @RestController
-@RequestMapping(path = "/api/carros")
+@RequestMapping(path = "/api/carro")
 public class CarrosController {
 
     @Autowired
@@ -60,9 +60,8 @@ public class CarrosController {
     }
 
     @PostMapping(path = "/comprar")
-    public ResponseEntity<Compra> comprar(@RequestBody Carros carro,
-                                                @RequestBody Cliente aluno){
-        return ResponseEntity.ok().body(carroService.comprar(aluno, carro));
+    public ResponseEntity<Compra> comprar(@RequestBody Cliente cliente, @RequestBody Carros carro){
+        return ResponseEntity.ok().body(carroService.comprar(cliente, carro));
     }
 
     @DeleteMapping(path = "/compra/excluir/{id}")

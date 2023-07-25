@@ -19,8 +19,8 @@ public class Compra {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "id_aluno", referencedColumnName = "id")
-    private Cliente aluno;
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
+    private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "id_carro", referencedColumnName = "id")

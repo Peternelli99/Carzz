@@ -42,9 +42,9 @@ public class CarrosService {
         return carroRepository.save(carro);
     }
 
-    public Compra comprar(Cliente aluno, Carros carro){
+    public Compra comprar(Cliente cliente, Carros carro){
         Compra compra = new Compra();
-        compra.setAluno(aluno);
+        compra.setCliente(cliente);
         compra.setCarro(carro);
         return compraRepository.save(compra);
     }
