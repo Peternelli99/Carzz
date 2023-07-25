@@ -22,6 +22,7 @@ type Inputs = {
   // codigo: string;
   concessionaria: string;
   vendedor: string;
+  cliente: string;
 };
 
 const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
@@ -49,11 +50,14 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
   const [concessionaria, setConcessionaria] = useState("");
   const [registros, setRegistros] = useState<any>([]);
 
-  const [carro, setCarro] = useState<any>([]);
+  const [carro, setCarro] = useState("");
   const [carros, setCarros] = useState<any>([]);
 
+  const [cliente, setCliente] = useState("");
+  const [clientes, setClientes] = useState<any>([]);
+
   let options = registros.map(function (registro: any) {
-    return { value: registro.nome.toString(), id: registro.id };
+    return { value: registro.nome?.toString(), id: registro.id };
   });
 
   useEffect(() => {
@@ -81,7 +85,24 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
   }, []);
 
   let optionsCarros = carros.map(function (carro: any) {
-    return { value: carro.nome.toString(), id: carro.id };
+    return { value: carro.nome?.toString(), id: carro.id };
+  });
+
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/cliente/listar")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data Clientes que vem o back", data)
+        setClientes(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  let optionsClientes = clientes.map(function (cliente: any) {
+    return { value: cliente.nome?.toString(), id: cliente.id };
   });
 
 
@@ -102,8 +123,9 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
 
   const schema = yup.object({
     nome: yup.string().required("Campo obrigatório"),
-    concessionaria: yup.string().required("Campo obrigatório"),
-    vendedor: yup.string().required("Campo obrigatório"),
+    //cliente: yup.string().required("Campo obrigatório"),
+    // concessionaria: yup.string().required("Campo obrigatório"),
+    // vendedor: yup.string().required("Campo obrigatório"),
   });
 
   const {
@@ -127,32 +149,29 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
     reset();
   };
 
-  const addCarro = async (data: Inputs) => {
-    
-    var concessionaria = registros.filter((obj: any) => {
-      return obj.id == data.concessionaria;
-    });
-    concessionaria = concessionaria[0];
-
-    var vendedor = registros.filter((obj: any) => {
-      return obj.id == data.vendedor;
-    });
-    vendedor = vendedor[0];
+  const addCarro = async (e: Inputs) => {
 
     var carro = registros.filter((obj: any) => {
-        return obj.id == data.nome;
+        return obj.id == e.nome;
     });
     carro = carro[0];
 
+    const data = {
+      cliente: {
+        id_cliente: cliente
+      },
+      carro: {
+        id_carro: carro.id,
+        nome: carro.nome
+      },
+      nome: carro.nome
+    }
+
     let response = await fetch(
-      `http://localhost:8080/api/carro/comprar`,
+      `http://localhost:8080/api/comprar/comprar`,
       {
         method: "POST",
-        body: JSON.stringify({
-          nome: data.nome,
-          concessionaria: concessionaria,
-          vendedor: vendedor,
-        }),
+        body: JSON.stringify(data),
         headers: {
           "Content-type": "application/json; charset=UTF-8",
         },
@@ -160,9 +179,8 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data);
-        window.location.reload();
-        console.log("data", data);
+        console.log("data enviando", data);
+        //window.location.reload();
       })
       .catch((err) => {
         console.log(err.message);
@@ -170,15 +188,15 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
   };
 
   const editCarro = async (id: number, data: Inputs) => {
-    var concessionaria = registros.filter((obj: any) => {
-      return obj.id == data.concessionaria;
-    });
-    concessionaria = concessionaria[0];
+    // var concessionaria = registros.filter((obj: any) => {
+    //   return obj.id == data.concessionaria;
+    // });
+    // concessionaria = concessionaria[0];
 
-    var vendedor = registros.filter((obj: any) => {
-      return obj.id == data.vendedor;
-    });
-    vendedor = vendedor[0];
+    // var vendedor = registros.filter((obj: any) => {
+    //   return obj.id == data.vendedor;
+    // });
+    // vendedor = vendedor[0];
 
     console.log(concessionaria, data.nome, vendedor, id)
 
@@ -186,8 +204,8 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
       method: "PUT",
       body: JSON.stringify({
         nome: data.nome,
-        vendedor: vendedor,
-        concessionaria: concessionaria,
+        // vendedor: vendedor,
+        // concessionaria: concessionaria,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -248,6 +266,17 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
                   selected={carro}
                   errors={errors.nome?.message}
                 />
+                <Select
+                  label="Cliente:"
+                  placeholder="Selecione o cliente que vai comprar o carro"
+                  options={optionsClientes}
+                  onClick={(e) => {
+                    setValue("nome", e.currentTarget.id, { shouldValidate: true });
+                    setCliente(e.currentTarget.id);
+                  }}
+                  selected={cliente}
+                  errors={errors.nome?.message}
+                />
                 {/* <Input
                   label="Código:"
                   id="codigo"
@@ -267,7 +296,7 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
                   selected={concessionaria}
                   errors={errors.concessionaria?.message}
                 /> */}
-                <Select
+                {/* <Select
                   label="Concessionária:"
                   placeholder="Selecione a Concessionária"
                   options={options}
@@ -288,7 +317,7 @@ const AddComprarCarro: React.FC<AddComprarCarroProps> = ({
                   }}
                   selected={vendedor}
                   errors={errors.vendedor?.message}
-                />
+                /> */}
               </div>
               <FooterModal
                 submit={editData !== undefined ? "Editar" : "Cadastrar"}
