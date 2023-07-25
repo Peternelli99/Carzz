@@ -13,6 +13,7 @@ import { NavbarClienteLinks } from "@utils/data";
 import Navbar from "@components/navigation/navbar";
 import Button from "@components/elements/button";
 import Link from "next/link";
+import AddComprarCarro from "@components/modal/form/comprar";
 
 const columns = [
   // {
@@ -59,7 +60,7 @@ const data = [
 */
 
 const Home: NextPage = () => {
-  const [selectedRows, setSelectedRows] = useState([]);
+  const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [carros, setCarros] = useState([]);
 
   useEffect(() => {
@@ -73,11 +74,76 @@ const Home: NextPage = () => {
       });
   }, []);
 
+  // let optionsCarros = carros.map(function (carro: any) {
+  //   return { value: carro.nome, id: carro.id };
+  // });
+
+  // let carroId = selectedRows.map(function (carro: any) {
+  //   return {id: carro.id };
+  // });
+
+  // let ids = selectedRows.map(function (carro: any) {
+  //   return {idCarro: id};
+  // });
 
   const handleChange = ({ selectedRows }: any) => {
     setSelectedRows(selectedRows);
-    console.log(selectedRows);
+    // console.log("optionCarrosID", optionsCarros);
+    // console.log("selectedRows", selectedRows);
+    // console.log("id carro", carroId );
+    // console.log("id id id", ids );
+    // addCarro(selectedRows.id)
   };
+
+  // type Inputs = {
+  //   // id?: number;
+  //   // nome?: string;
+  //   // codigo: string;
+  //   // concessionaria?: string;
+  //   // vendedor?: string;
+  //   idCarro: object;
+  //   cliente: string;
+  // };
+
+  // const addCarro = async (data: Inputs) => {
+  //   let response = await fetch(`http://localhost:8080/api/carro/comprar`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       id_carro: carroId,
+  //       id_cliente: "01",
+  //     }),
+  //     headers: {
+  //       "Content-type": "application/json; charset=UTF-8",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       window.location.reload();
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.message);
+  //     });
+  // };
+
+  // const handleConfirmClick = () => {
+  //   if (selectedRows && selectedRows.length > 0) {
+  //     // Filter out any null or undefined rows before mapping
+  //     const filteredRows = selectedRows.filter((row) => row !== null && row !== undefined);
+  
+  //     // Map over the filteredRows and extract the necessary data
+  //     const data = {
+  //       idCarro: filteredRows.map((row) => ({
+  //         value: row?.nome, // Use an empty string as a fallback if 'row' or 'nome' is null or undefined
+  //         id: row?.id || "",
+  //       })),
+  //       cliente: "01",
+  //     };
+  
+  //     addCarro(data);
+  //   } else {
+  //     console.log("No selected rows to confirm.");
+  //   }
+  // };
 
   return (
     <Template
@@ -132,7 +198,9 @@ const Home: NextPage = () => {
             {selectedRows.length > 0 ? (
               <ul>
                 {selectedRows.map((row) => (
-                  <li key={row.id}>{row?.codigo} - {row?.nome}</li>
+                  <li key={row.id}>
+                    {row?.codigo} - {row?.nome}
+                  </li>
                 ))}
               </ul>
             ) : (
@@ -142,11 +210,12 @@ const Home: NextPage = () => {
             )}
 
             <div className="self-end mt-8">
-              <Button variant="primary">
+              {/* <Button variant="primary" onClick={handleConfirmClick}>
                 <Link href="/cliente">
-                  <a>Confirmar</a>
+                <a>Confirmar</a>
                 </Link>
-              </Button>
+              </Button> */}
+               <AddComprarCarro />
             </div>
           </div>
         </div>
