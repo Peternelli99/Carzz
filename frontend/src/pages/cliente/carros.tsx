@@ -12,45 +12,40 @@ import { NavbarClienteLinks } from "@utils/data";
 import Navbar from "@components/navigation/navbar";
 import Button from "@components/elements/button";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const columns = [
+  {
+    id: "codigo",
+    name: "Código",
+    selector: (row: any) => row.id,
+    sortable: true,
+    width: "10%",
+  },
   {
     id: "nome",
     name: "Nome",
     selector: (row: any) => row.nome,
     sortable: true,
   },
-  {
-    id: "registro",
-    name: "Concessionárias",
-    selector: (row: any) => row.concessionaria,
-    sortable: true,
-  },
-  {
-    id: "vendedor",
-    name: "Vendedor",
-    selector: (row: any) => row?.vendedor,
-    sortable: true,
-  },
 ];
 
-const data = [
-  {
-    id: 1,
-    nome: "Palio Fire",
-    concessionaria: "Lavelli",
-    vendedor: "Antônio Maria",
-  },
-  {
-    id: 2,
-    nome: "Fiat Argo",
-    concessionaria: "Roma",
-    vendedor: "Leonidas",
-  },
-];
+
 
 const Home: NextPage = () => {
+  const [carrosComprados, setCarrosComprados] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/comprar/listar")
+      .then((response) => response.json())
+      .then((data) => {
+        setCarrosComprados(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
   return (
     <Template
       meta={
@@ -79,7 +74,7 @@ const Home: NextPage = () => {
         <div className="mt-8 overflow-x-auto animate-fade-in-up text-gray-700">
           <DataTable
             columns={columns}
-            data={data}
+            data={carrosComprados}
             pagination
             paginationComponentOptions={paginationComponentOptions}
             highlightOnHover
