@@ -13,6 +13,9 @@ import Navbar from "@components/navigation/navbar";
 import Button from "@components/elements/button";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import AddComprarCarro from "@components/modal/form/comprar";
+import Excluir from "@components/modal/delete";
+import AddEditCliente from "@components/modal/form/cliente";
 
 const columns = [
   // {
@@ -46,8 +49,57 @@ const columns = [
     selector: (row: any) => row.cliente.id,
     sortable: true,
   },
+  {
+    id: "acoes",
+    sortable: false,
+    left: true,
+    grow: 0,
+    cell: (props: any) => (
+      <div className="flex gap-2">
+        <Excluir
+          title="Excluir Carro"
+          description="Tem certeza que deseja excluir esse carro?"
+          onClick={() => deleteRegistro(props.id)}
+        />
+        <AddComprarCarro editData={props.id} />
+      </div>
+    ),
+  },
+      {
+      id: "acoes",
+      sortable: false,
+      right: true,
+      grow: 0,
+      cell: (props: any) => (
+        <div className="flex gap-2">
+          <Excluir
+            title="Excluir Cliente"
+            description="Tem certeza que deseja excluir esse cliente?"
+            onClick={() => deleteCliente(props.id)}
+          />
+          <AddEditCliente editData={props.id} />
+        </div>
+      ),
+    },
 ];
 
+const deleteRegistro = async (id: number) => {
+  await fetch(`http://localhost:8080/api/carro/excluir/${id}`, {
+    method: "DELETE",
+  }).then((response) => {
+    console.log(response);
+    window.location.reload();
+  });
+};
+
+const deleteCliente = async (id: number) => {
+  await fetch(`http://localhost:8080/api/cliente/excluir/${id}`, {
+    method: "DELETE",
+  }).then((response) => {
+    console.log(response);
+    window.location.reload();
+  });
+};
 
 
 const Home: NextPage = () => {
