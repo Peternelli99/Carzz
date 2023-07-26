@@ -14,6 +14,7 @@ import Navbar from "@components/navigation/navbar";
 import Button from "@components/elements/button";
 import Link from "next/link";
 import AddComprarCarro from "@components/modal/form/comprar";
+import { Select } from "@components/form/select";
 
 const columns = [
   // {
@@ -59,9 +60,13 @@ const data = [
 ];
 */
 
+
 const Home: NextPage = () => {
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
   const [carros, setCarros] = useState([]);
+
+  const [cliente, setCliente] = useState("");
+  const [clientes, setClientes] = useState<any>([]);
 
   useEffect(() => {
     fetch("http://localhost:8080/api/carro/listar")
@@ -78,9 +83,6 @@ const Home: NextPage = () => {
   //   return { value: carro.nome, id: carro.id };
   // });
 
-  let carroId = selectedRows.map(function (carro: any) {
-    return {id: carro.id };
-  });
 
   // let ids = selectedRows.map(function (carro: any) {
   //   return {idCarro: id};
@@ -121,20 +123,22 @@ const Home: NextPage = () => {
   const handleConfirmClick = () => {
     if (selectedRows && selectedRows.length > 0) {
       // Filter out any null or undefined rows before mapping
-      const filteredRows = selectedRows.filter((row) => row !== null && row !== undefined);
-  
+      const filteredRows = selectedRows.filter(
+        (row) => row !== null && row !== undefined
+      );
+      console.log("cliente state", cliente)
       // Map over the filteredRows and extract the necessary data
       const data = {
         cliente: {
-          id: "1"
+          id: cliente,
         },
         carro: {
           id: filteredRows[0].id,
-          nome: filteredRows[0].nome
+          nome: filteredRows[0].nome,
         },
-        nome: filteredRows[0].nome
+        nome: filteredRows[0].nome,
       };
-  
+
       addCarro(data);
     } else {
       console.log("No selected rows to confirm.");
@@ -151,6 +155,22 @@ const Home: NextPage = () => {
   //   },
   //   "nome": "ford Ka"
   // }
+
+  useEffect(() => {
+    fetch("http://localhost:8080/api/cliente/listar")
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data Clientes que vem o back", data)
+        setClientes(data);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  let optionsClientes = clientes.map(function (cliente: any) {
+    return { value: cliente.nome?.toString(), id: cliente.id };
+  });
 
   return (
     <Template
@@ -193,6 +213,18 @@ const Home: NextPage = () => {
 
           <div className="card-white flex flex-col w-full lg:w-1/3">
             <h4>Carros Comprados</h4>
+            <Select
+              label="Cliente:"
+              placeholder="Selecione o cliente que vai comprar o carro"
+              options={optionsClientes}
+              onClick={(e) => {
+                // setValue("nome", e.currentTarget.id, { shouldValidate: true });
+                setCliente(e.currentTarget.id);
+                console.log(e.currentTarget.id);
+              }}
+              selected={cliente}
+              // errors={errors.nome?.message}
+            />
             {selectedRows.length == 1 && (
               <p>{selectedRows.length} selecionada</p>
             )}
@@ -222,7 +254,7 @@ const Home: NextPage = () => {
                 <a>Confirmar</a>
                 {/* </Link> */}
               </Button>
-               {/* <AddComprarCarro /> */}
+              {/* <AddComprarCarro /> */}
             </div>
           </div>
         </div>

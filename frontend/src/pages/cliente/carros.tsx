@@ -18,13 +18,6 @@ import Excluir from "@components/modal/delete";
 import AddEditCliente from "@components/modal/form/cliente";
 
 const columns = [
-  // {
-  //   id: "codigo",
-  //   name: "Código",
-  //   selector: (row: any) => row.id,
-  //   sortable: true,
-  //   width: "10%",
-  // },
   {
     id: "id_carro",
     name: "id do carro",
@@ -65,35 +58,10 @@ const columns = [
       </div>
     ),
   },
-      {
-      id: "acoes",
-      sortable: false,
-      right: true,
-      grow: 0,
-      cell: (props: any) => (
-        <div className="flex gap-2">
-          <Excluir
-            title="Excluir Cliente"
-            description="Tem certeza que deseja excluir esse cliente?"
-            onClick={() => deleteCliente(props.id)}
-          />
-          <AddEditCliente editData={props.id} />
-        </div>
-      ),
-    },
 ];
 
 const deleteRegistro = async (id: number) => {
-  await fetch(`http://localhost:8080/api/carro/excluir/${id}`, {
-    method: "DELETE",
-  }).then((response) => {
-    console.log(response);
-    window.location.reload();
-  });
-};
-
-const deleteCliente = async (id: number) => {
-  await fetch(`http://localhost:8080/api/cliente/excluir/${id}`, {
+  await fetch(`http://localhost:8080/api/comprar/excluir/${id}`, {
     method: "DELETE",
   }).then((response) => {
     console.log(response);
