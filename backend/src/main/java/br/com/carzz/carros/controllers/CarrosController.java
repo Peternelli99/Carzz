@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.carzz.carros.entities.Carros;
-import br.com.carzz.carros.entities.Compra;
 import br.com.carzz.carros.services.CarrosService;
 
 @RestController
@@ -46,24 +45,6 @@ public class CarrosController {
     public ResponseEntity<HttpStatus> excluirCarro(@PathVariable Long id){
         try{
             carroService.excluir(id);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }catch(Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    @GetMapping(path = "/listar/compras")
-    public ResponseEntity<List<Compra>> listarCompras(){
-        List<Compra> compras = carroService.listarCompras();
-        return ResponseEntity.ok().body(compras);
-    }
-
-
-
-    @DeleteMapping(path = "/compra/excluir/{id}")
-    public ResponseEntity<HttpStatus> excluirCompra(@PathVariable Long id){
-        try{
-            carroService.excluirCompra(id);
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

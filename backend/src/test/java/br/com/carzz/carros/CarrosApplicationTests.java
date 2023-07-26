@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,12 @@ class CarrosApplicationTests {
 	private ConcessionariaController concessionariaController;
 
 	@Test
+	public void buscarPorId(){
+		Optional<Concessionaria> concessionariaId = concessionariaService.listarPorId((long) 1);
+		assertEquals("loja carro", concessionariaId.get().getNome());
+	}
+
+	@Test
 	void TesteCriarConcessionaria() {
 		Concessionaria concessionariaTeste = new Concessionaria();
 		concessionariaTeste.setDataCriacao(new Date());
@@ -37,6 +44,7 @@ class CarrosApplicationTests {
 	void testeListarConcessionaria(){
 		List<Concessionaria> concessionariaBuscada = concessionariaService.listar();
 		assertEquals("loja de carros", concessionariaBuscada.get(concessionariaBuscada.size()-1).getNome());
+		System.out.println("Teste testeListarConcessionaria executado!");
 	}
 
 	@Test
